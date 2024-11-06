@@ -11,14 +11,14 @@
 ![GitHub stars](https://img.shields.io/github/stars/username/advanced-r-viz-suite)
 ![GitHub forks](https://img.shields.io/github/forks/username/advanced-r-viz-suite)
 
-[![Build Status](https://github.com/username/advanced-r-viz-suite/workflows/R-CMD-check/badge.svg)](https://github.com/username/advanced-r-viz-suite/actions)
-[![codecov](https://codecov.io/gh/username/advanced-r-viz-suite/branch/main/graph/badge.svg)](https://codecov.io/gh/username/advanced-r-viz-suite)
-[![CRAN status](https://www.r-pkg.org/badges/version/advancedrviz)](https://CRAN.R-project.org/package=advancedrviz)
-[![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/advancedrviz)](https://cran.r-project.org/package=advancedrviz)
+[![Build Status](https://github.com/Exios66/MATLAB/workflows/R-CMD-check/badge.svg)](https://github.com/Exios66/MATLAB/actions)
+[![codecov](https://codecov.io/gh/Exios66/MATLAB/branch/main/graph/badge.svg)](https://codecov.io/gh/Exios66/MATLAB)
+[![CRAN status](https://www.r-pkg.org/badges/version/MATLAB)](https://CRAN.R-project.org/package=MATLAB)
+[![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/MATLAB)](https://cran.r-project.org/package=MATLAB)
 
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![R-CMD-check](https://github.com/username/advanced-r-viz-suite/workflows/R-CMD-check/badge.svg)](https://github.com/username/advanced-r-viz-suite/actions)
-[![pkgdown](https://github.com/username/advanced-r-viz-suite/workflows/pkgdown/badge.svg)](https://username.github.io/advanced-r-viz-suite/)
+[![R-CMD-check](https://github.com/Exios66/MATLAB/workflows/R-CMD-check/badge.svg)](https://github.com/Exios66/MATLAB/actions)
+[![pkgdown](https://github.com/Exios66/MATLAB/workflows/pkgdown/badge.svg)](https://Exios66.github.io/MATLAB/)
 
 ### Table of Contents
 
