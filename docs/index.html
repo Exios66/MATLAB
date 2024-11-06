@@ -8,50 +8,176 @@
     <!-- CSS Dependencies -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <style>
         :root {
             --primary-color: #2E9FDF;
             --secondary-color: #00AFBB;
             --accent-color: #E7B800;
+            --dark-color: #343A40;
+            --light-color: #F8F9FA;
         }
 
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             line-height: 1.6;
+            background-color: var(--light-color);
+            color: var(--dark-color);
         }
 
         .hero-section {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            padding: 4rem 0;
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(46, 159, 223, 0.2);
+            z-index: 0;
+        }
+
+        .hero-section .container {
+            position: relative;
+            z-index: 1;
         }
 
         .feature-card {
             border: none;
-            border-radius: 10px;
-            transition: transform 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            background-color: white;
+            padding: 2rem;
+            text-align: center;
         }
 
         .feature-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
         }
 
         .viz-preview {
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .viz-preview:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
         }
 
         .nav-tabs .nav-link.active {
-            border-bottom: 3px solid var(--primary-color);
+            border-bottom: 4px solid var(--primary-color);
+            font-weight: bold;
         }
 
         .code-block {
-            background: #f8f9fa;
-            padding: 1rem;
-            border-radius: 8px;
+            background: #f1f3f5;
+            padding: 1.5rem;
+            border-radius: 10px;
             font-family: 'Fira Code', monospace;
+            overflow-x: auto;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            background: rgba(46, 159, 223, 0.8);
+            color: white;
+            width: 100%;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            padding: 1rem;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .animate-in {
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translate3d(0, 20px, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        .navbar-scrolled {
+            background-color: rgba(52, 58, 64, 0.9) !important;
+            transition: background-color 0.3s ease;
+        }
+
+        footer h5 {
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+        }
+
+        footer ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 4rem 0;
+            }
+
+            .feature-card {
+                padding: 1.5rem;
+            }
+
+            .feature-icon {
+                font-size: 2.5rem;
+            }
         }
     </style>
 </head>
@@ -91,11 +217,11 @@
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="container text-center">
-            <h1 class="display-4 mb-4">Advanced R Data Visualization Suite</h1>
-            <p class="lead mb-4">A comprehensive platform for data analysis, visualization, and reporting</p>
-            <div class="d-flex justify-content-center gap-3">
-                <a href="#getting-started" class="btn btn-light btn-lg">Get Started</a>
-                <a href="https://github.com/username/advanced-r-viz-suite" class="btn btn-outline-light btn-lg">
+            <h1 class="display-4 mb-4 animate__animated animate__fadeIn">Advanced R Data Visualization Suite</h1>
+            <p class="lead mb-4 animate__animated animate__fadeIn">A comprehensive platform for data analysis, visualization, and reporting</p>
+            <div class="d-flex justify-content-center gap-3 animate__animated animate__fadeIn">
+                <a href="#getting-started" class="btn btn-light btn-lg shadow" onclick="scrollToSection('getting-started')">Get Started</a>
+                <a href="https://github.com/username/advanced-r-viz-suite" class="btn btn-outline-light btn-lg shadow" target="_blank" rel="noopener">
                     <i class="fab fa-github me-2"></i>GitHub
                 </a>
             </div>
@@ -107,7 +233,114 @@
         <div class="container">
             <h2 class="text-center mb-5">Core Features</h2>
             <div class="row g-4">
-                <!-- Feature cards for Data Import, Visualization, Analysis, etc. -->
+                <!-- Data Import Feature -->
+                <div class="col-md-4">
+                    <div class="feature-card animate__animated" data-feature="data-import">
+                        <div class="feature-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h4>Data Import</h4>
+                        <p>Easily import data from various sources including CSV, Excel, RDS, and Feather files.</p>
+                        <div class="feature-details">
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check"></i> Drag & drop file upload</li>
+                                <li><i class="fas fa-check"></i> Automatic data type detection</li>
+                                <li><i class="fas fa-check"></i> Preview & validation</li>
+                            </ul>
+                        </div>
+                        <a href="#data-import" class="btn btn-primary mt-3" onclick="showFeatureModal('data-import')">Learn More</a>
+                    </div>
+                </div>
+                <!-- Data Visualization Feature -->
+                <div class="col-md-4">
+                    <div class="feature-card animate__animated" data-feature="data-viz" data-bs-toggle="tooltip" data-bs-placement="top" title="Explore a wide range of visualization options">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <h4>Data Visualization</h4>
+                        <p>Create stunning visualizations with customizable options to fit your data analysis needs.</p>
+                        <div class="feature-details">
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check"></i> Interactive plot builder</li>
+                                <li><i class="fas fa-check"></i> Real-time updates</li>
+                                <li><i class="fas fa-check"></i> Theme customization</li>
+                            </ul>
+                        </div>
+                        <a href="#data-visualization" class="btn btn-primary mt-3" onclick="showFeatureModal('data-viz')">Learn More</a>
+                    </div>
+                </div>
+                <!-- Statistical Analysis Feature -->
+                <div class="col-md-4">
+                    <div class="feature-card animate__animated" data-feature="stats">
+                        <div class="feature-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <h4>Statistical Analysis</h4>
+                        <p>Perform in-depth statistical analyses including descriptive stats, correlation, and clustering.</p>
+                        <div class="feature-details">
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check"></i> Automated reporting</li>
+                                <li><i class="fas fa-check"></i> Statistical tests</li>
+                                <li><i class="fas fa-check"></i> Model diagnostics</li>
+                            </ul>
+                        </div>
+                        <a href="#statistical-analysis" class="btn btn-primary mt-3" onclick="showFeatureModal('stats')">Learn More</a>
+                    </div>
+                </div>
+                <!-- Interactive Dashboard Feature -->
+                <div class="col-md-4">
+                    <div class="feature-card animate__animated" data-feature="dashboard">
+                        <div class="feature-icon">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        <h4>Interactive Dashboard</h4>
+                        <p>Build interactive dashboards to visualize key metrics and track data trends in real-time.</p>
+                        <div class="feature-details">
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check"></i> Drag & drop layout</li>
+                                <li><i class="fas fa-check"></i> Live filtering</li>
+                                <li><i class="fas fa-check"></i> Auto-refresh</li>
+                            </ul>
+                        </div>
+                        <a href="#interactive-dashboard" class="btn btn-primary mt-3" onclick="showFeatureModal('dashboard')">Learn More</a>
+                    </div>
+                </div>
+                <!-- Export & Share Feature -->
+                <div class="col-md-4">
+                    <div class="feature-card animate__animated" data-feature="export">
+                        <div class="feature-icon">
+                            <i class="fas fa-share-alt"></i>
+                        </div>
+                        <h4>Export & Share</h4>
+                        <p>Export your reports and visualizations in multiple formats and share them effortlessly.</p>
+                        <div class="feature-details">
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check"></i> Multiple formats</li>
+                                <li><i class="fas fa-check"></i> Direct sharing</li>
+                                <li><i class="fas fa-check"></i> Embed options</li>
+                            </ul>
+                        </div>
+                        <a href="#export-share" class="btn btn-primary mt-3" onclick="showFeatureModal('export')">Learn More</a>
+                    </div>
+                </div>
+                <!-- Customization Feature -->
+                <div class="col-md-4">
+                    <div class="feature-card animate__animated" data-feature="custom">
+                        <div class="feature-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <h4>Customization</h4>
+                        <p>Customize every aspect of your visualizations and reports to match your specific requirements.</p>
+                        <div class="feature-details">
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check"></i> Theme editor</li>
+                                <li><i class="fas fa-check"></i> Custom CSS</li>
+                                <li><i class="fas fa-check"></i> Template system</li>
+                            </ul>
+                        </div>
+                        <a href="#customization" class="btn btn-primary mt-3" onclick="showFeatureModal('custom')">Learn More</a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -116,94 +349,65 @@
     <section id="visualizations" class="py-5 bg-light">
         <div class="container">
             <h2 class="text-center mb-5">Visualization Gallery</h2>
-            <ul class="nav nav-tabs mb-4" id="vizTabs">
-                <li class="nav-item">
-                    <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button">Basic</button>
+            <ul class="nav nav-tabs mb-4 justify-content-center" id="vizTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button" role="tab" aria-controls="basic" aria-selected="true" onclick="loadVizTab('basic')">Basic</button>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#advanced">Advanced</a>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="advanced-tab" data-bs-toggle="tab" data-bs-target="#advanced" type="button" role="tab" aria-controls="advanced" aria-selected="false" onclick="loadVizTab('advanced')">Advanced</button>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#statistical">Statistical</a>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="statistical-tab" data-bs-toggle="tab" data-bs-target="#statistical" type="button" role="tab" aria-controls="statistical" aria-selected="false" onclick="loadVizTab('statistical')">Statistical</button>
                 </li>
             </ul>
-            <div class="tab-content">
+            <div class="tab-content" id="vizTabsContent">
                 <!-- Basic Visualizations -->
-                <div class="tab-pane fade show active" id="basic">
+                <div class="tab-pane fade show active" id="basic" role="tabpanel" aria-labelledby="basic-tab">
                     <div class="gallery-grid">
-                        <div class="gallery-item">
+                        <div class="gallery-item" data-viz="scatter">
                             <img src="images/scatter.png" alt="Scatter Plot" class="img-fluid">
                             <div class="gallery-overlay">
                                 <h5>Scatter Plot</h5>
-                                <p>Interactive scatter plots with customizable aesthetics</p>
+                                <p>Interactive scatter plots with customizable aesthetics and trend lines.</p>
+                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('scatter')">View Demo</button>
                             </div>
                         </div>
-                        <div class="gallery-item">
-                            <img src="images/bar.png" alt="Bar Chart" class="img-fluid">
-                            <div class="gallery-overlay">
-                                <h5>Bar Chart</h5>
-                                <p>Grouped and stacked bar charts with animations</p>
-                            </div>
-                        </div>
-                        <div class="gallery-item">
-                            <img src="images/line.png" alt="Line Plot" class="img-fluid">
-                            <div class="gallery-overlay">
-                                <h5>Line Plot</h5>
-                                <p>Time series and trend visualization</p>
-                            </div>
-                        </div>
-                        <div class="gallery-item">
-                            <img src="images/boxplot.png" alt="Box Plot" class="img-fluid">
-                            <div class="gallery-overlay">
-                                <h5>Box Plot</h5>
-                                <p>Distribution and outlier analysis</p>
-                            </div>
-                        </div>
+                        <!-- Additional gallery items... -->
                     </div>
                 </div>
 
                 <!-- Advanced Visualizations -->
-                <div class="tab-pane fade" id="advanced">
+                <div class="tab-pane fade" id="advanced" role="tabpanel" aria-labelledby="advanced-tab">
                     <div class="gallery-grid">
-                        <div class="gallery-item">
-                            <img src="images/treemap.png" alt="Treemap" class="img-fluid">
-                            <div class="gallery-overlay">
-                                <h5>Treemap</h5>
-                                <p>Hierarchical data visualization with interactive zooming</p>
-                            </div>
-                        </div>
-                        <div class="gallery-item">
-                            <img src="images/network.png" alt="Network Graph" class="img-fluid">
-                            <div class="gallery-overlay">
-                                <h5>Network Graph</h5>
-                                <p>Force-directed network visualization with customizable layouts</p>
-                            </div>
-                        </div>
-                        <div class="gallery-item">
-                            <img src="images/density.png" alt="Density Plot" class="img-fluid">
-                            <div class="gallery-overlay">
-                                <h5>Density Plot</h5>
-                                <p>Kernel density estimation with multiple groups</p>
-                            </div>
-                        </div>
+                        <!-- Advanced visualization items... -->
                     </div>
                 </div>
 
                 <!-- Statistical Visualizations -->
-                <div class="tab-pane fade" id="statistical">
+                <div class="tab-pane fade" id="statistical" role="tabpanel" aria-labelledby="statistical-tab">
                     <div class="gallery-grid">
-                        <div class="gallery-item">
-                            <img src="images/correlation.png" alt="Correlation Matrix" class="img-fluid">
+                        <div class="gallery-item" data-viz="boxplot">
+                            <img src="images/boxplot.png" alt="Box Plot" class="img-fluid">
                             <div class="gallery-overlay">
-                                <h5>Correlation Matrix</h5>
-                                <p>Interactive correlation analysis with significance testing</p>
+                                <h5>Box Plot</h5>
+                                <p>Statistical distribution visualization with outlier detection.</p>
+                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('boxplot')">View Demo</button>
                             </div>
                         </div>
-                        <div class="gallery-item">
-                            <img src="images/clustering.png" alt="Cluster Analysis" class="img-fluid">
+                        <div class="gallery-item" data-viz="histogram">
+                            <img src="images/histogram.png" alt="Histogram" class="img-fluid">
                             <div class="gallery-overlay">
-                                <h5>Cluster Analysis</h5>
-                                <p>K-means and hierarchical clustering visualizations</p>
+                                <h5>Histogram</h5>
+                                <p>Frequency distribution analysis with density estimation.</p>
+                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('histogram')">View Demo</button>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-viz="qqplot">
+                            <img src="images/qqplot.png" alt="Q-Q Plot" class="img-fluid">
+                            <div class="gallery-overlay">
+                                <h5>Q-Q Plot</h5>
+                                <p>Normality assessment and distribution comparison.</p>
+                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('qqplot')">View Demo</button>
                             </div>
                         </div>
                     </div>
@@ -216,7 +420,196 @@
     <section id="getting-started" class="py-5">
         <div class="container">
             <h2 class="text-center mb-5">Quick Start Guide</h2>
-            <!-- Installation and usage instructions -->
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="code-block">
+                        <pre><code class="language-bash" id="installation-code">
+
+                        </code></pre>
+                        <button type="button" class="btn btn-sm btn-secondary copy-btn" onclick="copyCode('installation-code')" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy to clipboard">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <div class="quick-start-steps mt-4">
+                        <p>Follow these simple steps to get started with the Advanced R Data Visualization Suite:</p>
+                        <ol>
+                            <li>
+                                <strong>Install the Package:</strong>
+                                <div class="step-details">
+                                    Use CRAN or GitHub to install the latest version.
+                                    <div class="alert alert-info mt-2">
+                                        <i class="fas fa-info-circle"></i> Make sure you have R version 4.0.0 or higher installed.
+                                        <a href="/docs/requirements" class="alert-link">View system requirements</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <strong>Load the Library:</strong>
+                                <div class="step-details">
+                                    Load the package using <code>library(advancedRviz)</code>.
+                                    <div class="alert alert-success mt-2">
+                                        <i class="fas fa-lightbulb"></i> Pro tip: Add this to your <code>.Rprofile</code> for automatic loading.
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <strong>Launch the App:</strong>
+                                <div class="step-details">
+                                    Start the interactive dashboard with <code>launchApp()</code>.
+                                    <div class="mt-2">
+                                        <span class="badge bg-primary">New</span>
+                                        <span>Now supports remote deployment via Shiny Server!</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <strong>Import Your Data:</strong>
+                                <div class="step-details">
+                                    Upload your datasets in various formats.
+                                    <ul class="supported-formats">
+                                        <li><i class="fas fa-file-csv"></i> CSV files</li>
+                                        <li><i class="fas fa-file-excel"></i> Excel spreadsheets</li>
+                                        <li><i class="fas fa-file-code"></i> R data files (RDS)</li>
+                                        <li><i class="fas fa-feather"></i> Feather files</li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <strong>Explore Visualizations:</strong>
+                                <div class="step-details">
+                                    Choose from our visualization gallery and customize as needed.
+                                    <div class="progress mt-2" style="height: 5px;" aria-label="Visualization progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="Progress: 100%"></div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <strong>Analyze & Export:</strong>
+                                <div class="step-details">
+                                    Perform statistical analyses and export your findings.
+                                    <div class="export-formats mt-2" role="list" aria-label="Available export formats">
+                                        <span class="badge bg-secondary" role="listitem">PDF</span>
+                                        <span class="badge bg-secondary" role="listitem">HTML</span>
+                                        <span class="badge bg-secondary" role="listitem">PNG</span>
+                                        <span class="badge bg-secondary" role="listitem">SVG</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ol>
+                        <p class="mt-3">For detailed instructions and advanced usage, refer to our <a href="#docs" class="text-primary" aria-label="View documentation">Documentation</a>.</p>
+                        <div class="d-flex justify-content-center mt-4">
+                            <a href="/app" class="btn btn-success btn-lg me-3" onclick="trackAppLaunch()" aria-label="Launch application">
+                                <i class="fas fa-rocket me-2" aria-hidden="true"></i>Launch Application
+                            </a>
+                            <a href="#features" class="btn btn-outline-primary btn-lg" onclick="scrollToSection('features')" aria-label="Explore features">
+                                <i class="fas fa-search me-2" aria-hidden="true"></i>Explore Features
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documentation Section -->
+    <section id="docs" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Documentation</h2>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="doc-card h-100 shadow-sm animate__animated animate__fadeIn">
+                        <div class="doc-icon mb-3">
+                            <i class="fas fa-book-open fa-2x text-primary"></i>
+                        </div>
+                        <h4>Getting Started</h4>
+                        <p>Learn how to install, configure, and begin using the Advanced R Data Visualization Suite.</p>
+                        <div class="doc-topics">
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check-circle text-success me-2"></i>Installation Guide</li>
+                                <li><i class="fas fa-check-circle text-success me-2"></i>Basic Configuration</li>
+                                <li><i class="fas fa-check-circle text-success me-2"></i>First Steps</li>
+                            </ul>
+                        </div>
+                        <div class="progress my-3" style="height: 3px;">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%"></div>
+                        </div>
+                        <a href="/docs/getting-started" class="btn btn-primary w-100" onclick="trackDocAccess('getting-started')" data-bs-toggle="tooltip" data-bs-placement="top" title="Start here if you're new">
+                            <i class="fas fa-arrow-right me-2"></i>Read More
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="doc-card h-100 shadow-sm animate__animated animate__fadeIn">
+                        <div class="doc-icon mb-3">
+                            <i class="fas fa-code fa-2x text-primary"></i>
+                        </div>
+                        <h4>API Reference</h4>
+                        <p>Explore the comprehensive API documentation to leverage all functionalities of the suite.</p>
+                        <div class="doc-topics">
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check-circle text-success me-2"></i>Function Reference</li>
+                                <li><i class="fas fa-check-circle text-success me-2"></i>Class Documentation</li>
+                                <li><i class="fas fa-check-circle text-success me-2"></i>Integration Guide</li>
+                            </ul>
+                        </div>
+                        <div class="progress my-3" style="height: 3px;">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%"></div>
+                        </div>
+                        <a href="/docs/api" class="btn btn-primary w-100" onclick="trackDocAccess('api')" data-bs-toggle="tooltip" data-bs-placement="top" title="Technical documentation">
+                            <i class="fas fa-arrow-right me-2"></i>Read More
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-4 mt-2">
+                <div class="col-md-6">
+                    <div class="doc-card h-100 shadow-sm animate__animated animate__fadeIn">
+                        <div class="doc-icon mb-3">
+                            <i class="fas fa-graduation-cap fa-2x text-primary"></i>
+                        </div>
+                        <h4>Tutorials</h4>
+                        <p>Step-by-step tutorials to help you master data visualization and analysis techniques.</p>
+                        <div class="doc-topics">
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check-circle text-success me-2"></i>Basic Visualizations</li>
+                                <li><i class="fas fa-check-circle text-success me-2"></i>Advanced Analytics</li>
+                                <li><i class="fas fa-check-circle text-success me-2"></i>Custom Dashboards</li>
+                            </ul>
+                        </div>
+                        <div class="progress my-3" style="height: 3px;">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%"></div>
+                        </div>
+                        <a href="/docs/tutorials" class="btn btn-primary w-100" onclick="trackDocAccess('tutorials')" data-bs-toggle="tooltip" data-bs-placement="top" title="Learn through examples">
+                            <i class="fas fa-arrow-right me-2"></i>Read More
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="doc-card h-100 shadow-sm animate__animated animate__fadeIn">
+                        <div class="doc-icon mb-3">
+                            <i class="fas fa-question-circle fa-2x text-primary"></i>
+                        </div>
+                        <h4>FAQs</h4>
+                        <p>Find answers to the most frequently asked questions about the suite.</p>
+                        <div class="doc-topics">
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check-circle text-success me-2"></i>Common Issues</li>
+                                <li><i class="fas fa-check-circle text-success me-2"></i>Troubleshooting</li>
+                                <li><i class="fas fa-check-circle text-success me-2"></i>Best Practices</li>
+                            </ul>
+                        </div>
+                        <div class="progress my-3" style="height: 3px;">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%"></div>
+                        </div>
+                        <a href="/docs/faqs" class="btn btn-primary w-100" onclick="trackDocAccess('faqs')" data-bs-toggle="tooltip" data-bs-placement="top" title="Quick answers to common questions">
+                            <i class="fas fa-arrow-right me-2"></i>Read More
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-5">
+                <p class="text-muted">Can't find what you're looking for? <a href="/contact/support" class="text-primary">Contact our support team</a></p>
+            </div>
         </div>
     </section>
 
@@ -227,27 +620,30 @@
                 <div class="col-md-4">
                     <h5>Resources</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-light">Documentation</a></li>
-                        <li><a href="#" class="text-light">API Reference</a></li>
-                        <li><a href="#" class="text-light">Examples</a></li>
+                        <li><a href="/docs" class="text-light" onclick="trackFooterLink('docs')">Documentation</a></li>
+                        <li><a href="/docs/api" class="text-light" onclick="trackFooterLink('api')">API Reference</a></li>
+                        <li><a href="/docs/examples" class="text-light" onclick="trackFooterLink('examples')">Examples</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
                     <h5>Community</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-light">GitHub</a></li>
-                        <li><a href="#" class="text-light">Stack Overflow</a></li>
-                        <li><a href="#" class="text-light">Twitter</a></li>
+                        <li><a href="https://github.com/username/advanced-r-viz-suite" class="text-light" target="_blank" rel="noopener" onclick="trackFooterLink('github')">GitHub</a></li>
+                        <li><a href="https://stackoverflow.com/questions/tagged/advanced-r-viz-suite" class="text-light" target="_blank" rel="noopener" onclick="trackFooterLink('stackoverflow')">Stack Overflow</a></li>
+                        <li><a href="https://twitter.com/username" class="text-light" target="_blank" rel="noopener" onclick="trackFooterLink('twitter')">Twitter</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
                     <h5>Contact</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-light">Support</a></li>
-                        <li><a href="#" class="text-light">Feature Request</a></li>
-                        <li><a href="#" class="text-light">Bug Report</a></li>
+                        <li><a href="/contact/support" class="text-light" onclick="trackFooterLink('support')">Support</a></li>
+                        <li><a href="/contact/feature-request" class="text-light" onclick="trackFooterLink('feature-request')">Feature Request</a></li>
+                        <li><a href="/contact/bug-report" class="text-light" onclick="trackFooterLink('bug-report')">Bug Report</a></li>
                     </ul>
                 </div>
+            /div>
+            <div class="text-center mt-3">
+                <p>&copy; 2024 Lucius J. Morningstar. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -255,6 +651,7 @@
     <!-- JavaScript Dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/prismjs@1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.js"></script>
     <script>
         // Initialize all Bootstrap components and custom functionality
         document.addEventListener('DOMContentLoaded', function() {
@@ -274,13 +671,7 @@
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
+                    scrollToSection(this.getAttribute('href').substring(1));
                 });
             });
 
@@ -295,6 +686,53 @@
             });
 
             // Feature card animations
+            initFeatureCardAnimations();
+
+            // Code block syntax highlighting
+            if (typeof Prism !== 'unde<fined') {
+                Prism.highlightAll();
+            }
+
+            // Form validation
+            initFormValidation();
+
+            // Mobile menu handling
+            initMobileMenu();
+
+            // Initialize Animate.css
+            initAnimations();
+
+            // Initialize visualization demos
+            initVizDemos();
+        });
+
+        // Utility Functions
+        function scrollToSection(sectionId) {
+            const target = document.getElementById(sectionId);
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                // Track scroll event
+                trackScroll(sectionId);
+            }
+        }
+
+        function copyCode(elementId) {
+            const codeBlock = document.getElementById(elementId);
+            const code = codeBlock.textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                showToast('Code copied to clipboard!');
+            });
+        }
+
+        function showToast(message) {
+            // Implementation of toast notification
+        }
+
+        // Feature Card Animations
+        function initFeatureCardAnimations() {
             const featureCards = document.querySelectorAll('.feature-card');
             const observerOptions = {
                 threshold: 0.2,
@@ -304,7 +742,7 @@
             const cardObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('animate-in');
+                        entry.target.classList.add('animate__fadeInUp');
                         observer.unobserve(entry.target);
                     }
                 });
@@ -313,13 +751,10 @@
             featureCards.forEach(card => {
                 cardObserver.observe(card);
             });
+        }
 
-            // Code block syntax highlighting
-            if (typeof Prism !== 'undefined') {
-                Prism.highlightAll();
-            }
-
-            // Form validation
+        // Form Validation
+        function initFormValidation() {
             const forms = document.querySelectorAll('.needs-validation');
             forms.forEach(form => {
                 form.addEventListener('submit', event => {
@@ -330,8 +765,10 @@
                     form.classList.add('was-validated');
                 });
             });
+        }
 
-            // Mobile menu handling
+        // Mobile Menu
+        function initMobileMenu() {
             const navbarToggler = document.querySelector('.navbar-toggler');
             const navbarCollapse = document.querySelector('.navbar-collapse');
             
@@ -340,14 +777,531 @@
                     navbarCollapse.classList.toggle('show');
                 });
 
-                // Close mobile menu when clicking outside
                 document.addEventListener('click', (e) => {
                     if (!navbarCollapse.contains(e.target) && !navbarToggler.contains(e.target)) {
                         navbarCollapse.classList.remove('show');
                     }
                 });
             }
-        });
+        }
+
+        // Animations
+        function initAnimations() {
+            const animateElements = document.querySelectorAll('.animate__animated');
+            animateElements.forEach(el => {
+                el.classList.add('animate__fadeIn');
+            });
+        }
+
+        // Visualization Demos
+        function initVizDemos() {
+            // Initialize demo visualizations
+            const demoCharts = {
+                scatter: document.getElementById('demo-scatter'),
+                line: document.getElementById('demo-line'),
+                bar: document.getElementById('demo-bar')
+            };
+
+            // Sample data for demos
+            const demoData = {
+                scatter: {
+                    x: [1, 2, 3, 4, 5],
+                    y: [2, 4, 1, 5, 3],
+                    mode: 'markers',
+                    type: 'scatter'
+                },
+                line: {
+                    x: [1, 2, 3, 4, 5],
+                    y: [1, 3, 2, 4, 5],
+                    type: 'line'
+                },
+                bar: {
+                    x: ['A', 'B', 'C', 'D'],
+                    y: [20, 14, 23, 18],
+                    type: 'bar'
+                }
+            };
+
+            // Create and render demo visualizations
+            Object.entries(demoCharts).forEach(([type, element]) => {
+                if (element) {
+                    Plotly.newPlot(element, [demoData[type]], {
+                        responsive: true,
+                        displayModeBar: false,
+                        margin: { t: 20, r: 20, b: 40, l: 40 },
+                        showlegend: false,
+                        paper_bgcolor: 'transparent',
+                        plot_bgcolor: 'transparent',
+                        font: {
+                            family: 'Segoe UI, system-ui, -apple-system, sans-serif'
+                        }
+                    });
+
+                    // Add interactivity
+                    element.on('plotly_hover', (data) => {
+                        element.style.cursor = 'pointer';
+                    });
+
+                    element.on('plotly_unhover', () => {
+                        element.style.cursor = 'default';
+                    });
+
+                    // Add responsiveness
+                    window.addEventListener('resize', () => {
+                        Plotly.Plots.resize(element);
+                    });
+                }
+            });
+
+            // Initialize demo controls
+            const demoControls = document.querySelectorAll('[data-demo-control]');
+            demoControls.forEach(control => {
+                control.addEventListener('change', (e) => {
+                    const chartType = e.target.dataset.demoControl;
+                    const value = e.target.value;
+                    updateDemo(chartType, value);
+                });
+            });
+
+            // Demo update function
+            function updateDemo(chartType, option) {
+                const chart = demoCharts[chartType];
+                if (chart) {
+                    const update = {};
+                    switch(option) {
+                        case 'color':
+                            update.marker = { color: getRandomColor() };
+                            break;
+                        case 'size':
+                            update.marker = { size: Math.floor(Math.random() * 20) + 5 };
+                            break;
+                        case 'type':
+                            update.type = ['scatter', 'line', 'bar'][Math.floor(Math.random() * 3)];
+                            break;
+                    }
+                    Plotly.restyle(chart, update);
+                }
+            }
+
+            // Helper function for random colors
+            function getRandomColor() {
+                const letters = '0123456789ABCDEF';
+                let color = '#';
+                for (let i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+        }
+
+        // Analytics Tracking
+        const analyticsConfig = {
+            trackingId: 'UA-XXXXXXXX-X', // Replace with actual GA tracking ID
+            appName: 'R Viz Suite',
+            version: '1.0.0'
+        };
+
+        // Initialize analytics
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', analyticsConfig.trackingId, 'auto');
+        ga('set', 'appName', analyticsConfig.appName);
+        ga('set', 'appVersion', analyticsConfig.version);
+        ga('send', 'pageview');
+
+        // Custom event tracking
+        const Analytics = {
+            trackEvent: function(category, action, label = null, value = null) {
+                ga('send', 'event', {
+                    eventCategory: category,
+                    eventAction: action,
+                    eventLabel: label,
+                    eventValue: value
+                });
+            },
+
+            trackTiming: function(category, variable, value, label = null) {
+                ga('send', 'timing', {
+                    timingCategory: category,
+                    timingVar: variable,
+                    timingValue: value,
+                    timingLabel: label
+                });
+            },
+
+            trackError: function(error, fatal = false) {
+                ga('send', 'exception', {
+                    exDescription: error,
+                    exFatal: fatal
+                });
+            }
+        };
+
+        // Performance monitoring
+        const Performance = {
+            marks: {},
+            
+            start: function(markName) {
+                this.marks[markName] = performance.now();
+            },
+            
+            end: function(markName, category) {
+                if (this.marks[markName]) {
+                    const duration = performance.now() - this.marks[markName];
+                    Analytics.trackTiming(category, markName, Math.round(duration));
+                    delete this.marks[markName];
+                }
+            }
+        };
+        function trackScroll(sectionId) {
+            // Track when users scroll to different sections
+            const section = document.getElementById(sectionId);
+            if (!section) return;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Track the scroll event
+                        Analytics.trackEvent(
+                            'Navigation', 
+                            'Section Scroll',
+                            sectionId
+                        );
+
+                        // Track timing from page load to section view
+                        Performance.end(`scroll_to_${sectionId}`, 'Section Navigation');
+                        
+                        // Disconnect after first intersection
+                        observer.disconnect();
+                    }
+                });
+            }, {
+                threshold: 0.5 // Fire when 50% of section is visible
+            });
+
+            // Start timing
+            Performance.start(`scroll_to_${sectionId}`);
+            
+            // Start observing the section
+            observer.observe(section);
+        }
+
+        function trackAppLaunch() {
+            // Track when users click the "Launch App" button
+            const launchButton = document.querySelector('a[href="/app"]');
+            if (launchButton) {
+                Performance.start('app_launch');
+                launchButton.addEventListener('click', (e) => {
+                    // Track the launch event
+                    Analytics.trackEvent(
+                        'App', 
+                        'Launch',
+                        'Header Nav Button'
+                    );
+
+                    // Track timing from button click to app load
+                    Performance.end('app_launch', 'App Launch');
+
+                    // Track user properties
+                    Analytics.setUserProperty('last_launch', new Date().toISOString());
+                    Analytics.setUserProperty('launch_source', 'landing_page');
+
+                    // Track launch as conversion
+                    Analytics.trackConversion('app_launch');
+                });
+            }
+        }
+
+        function trackDocAccess(docType) {
+            // Track when users access documentation
+            Performance.start(`doc_access_${docType}`);
+
+            // Track the documentation access event
+            Analytics.trackEvent(
+                'Documentation',
+                'Access',
+                docType
+            );
+
+            // Track timing from access to load
+            Performance.end(`doc_access_${docType}`, 'Documentation Access');
+
+            // Update user properties
+            Analytics.setUserProperty('last_doc_access', new Date().toISOString());
+            Analytics.setUserProperty('doc_type_accessed', docType);
+
+            // Track documentation views
+            Analytics.trackPageView(`/docs/${docType}`);
+
+            // Track as micro-conversion
+            Analytics.trackConversion('documentation_view', {
+                docType: docType,
+                accessTime: new Date().toISOString()
+            });
+
+            // Add to user engagement score and update user level
+            const baseScore = 10;
+            const multiplier = Analytics.getUserProperty('user_level') || 1;
+            const docTypeMultipliers = {
+                'getting-started': 1.5,
+                'advanced': 2,
+                'api': 2.5,
+                'examples': 1.2
+            };
+            
+            // Calculate engagement points based on doc type
+            const points = baseScore * multiplier * (docTypeMultipliers[docType] || 1);
+            
+            // Update engagement metrics
+            Analytics.incrementUserMetric('total_engagement_points', points);
+            Analytics.incrementUserMetric('doc_engagement_score', points);
+            
+            // Check for level up conditions
+            const currentPoints = Analytics.getUserMetric('total_engagement_points');
+            const newLevel = Math.floor(currentPoints / 1000) + 1;
+            const currentLevel = Analytics.getUserProperty('user_level') || 1;
+            
+            if (newLevel > currentLevel) {
+                Analytics.setUserProperty('user_level', newLevel);
+                Analytics.trackEvent('User', 'Level Up', `Level ${newLevel}`);
+            }
+            Analytics.incrementUserMetric('doc_views', 1);
+            Analytics.incrementUserMetric('engagement_score', 5);
+        }
+
+        function trackFooterLink(linkType) {
+            // Track when users click footer links
+            Performance.start(`footer_click_${linkType}`);
+
+            // Track the footer link click event
+            Analytics.trackEvent(
+                'Footer',
+                'Click',
+                linkType
+            );
+
+            // Track timing from click to destination load
+            Performance.end(`footer_click_${linkType}`, 'Footer Navigation');
+
+            // Update user properties
+            Analytics.setUserProperty('last_footer_click', new Date().toISOString());
+            Analytics.setUserProperty('footer_link_clicked', linkType);
+
+            // Track as engagement metric
+            Analytics.incrementUserMetric('footer_clicks', 1);
+            Analytics.incrementUserMetric('engagement_score', 2);
+
+            // Track outbound links
+            if (linkType.includes('external')) {
+                Analytics.trackOutboundLink(linkType);
+            }
+
+            // Track social media links separately
+            if (linkType.includes('social')) {
+                Analytics.trackSocialInteraction(linkType);
+            }
+
+            // Track as micro-conversion
+            Analytics.trackConversion('footer_engagement', {
+                linkType: linkType,
+                clickTime: new Date().toISOString()
+            });
+
+            // Log for debugging in development
+            if (process.env.NODE_ENV === 'development') {
+                console.log(`Footer link clicked: ${linkType}`);
+            }
+        }
+
+        // Feature Modal
+        function showFeatureModal(featureId) {
+            // Track modal open event
+            Analytics.trackEvent('Feature Modal', 'Open', featureId);
+            Performance.start(`feature_modal_${featureId}`);
+
+            // Get modal content based on feature
+            const modalContent = {
+                'data-import': {
+                    title: 'Data Import Features',
+                    description: 'Import data from multiple sources with advanced preprocessing capabilities.',
+                    demoId: 'data-import-demo'
+                },
+                'data-viz': {
+                    title: 'Data Visualization Tools', 
+                    description: 'Create interactive and customizable visualizations.',
+                    demoId: 'viz-demo'
+                },
+                'stats': {
+                    title: 'Statistical Analysis',
+                    description: 'Perform comprehensive statistical analysis and modeling.',
+                    demoId: 'stats-demo'
+                },
+                'dashboard': {
+                    title: 'Interactive Dashboards',
+                    description: 'Build real-time interactive dashboards.',
+                    demoId: 'dashboard-demo'
+                }
+            };
+
+            const content = modalContent[featureId];
+            
+            // Create and configure modal
+            const modal = new bootstrap.Modal(document.getElementById('featureModal'));
+            document.getElementById('featureModalTitle').textContent = content.title;
+            document.getElementById('featureModalBody').innerHTML = `
+                <p class="mb-4">${content.description}</p>
+                <div id="${content.demoId}" class="demo-container mb-4"></div>
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-primary" onclick="showVizDemo('${featureId}')">
+                        Try Demo
+                    </button>
+                    <a href="/docs/${featureId}" class="btn btn-outline-primary">
+                        View Documentation
+                    </a>
+                </div>
+            `;
+
+            // Show modal with animation
+            modal.show();
+            
+            // Initialize demo if available
+            if (window.demoInitializers && window.demoInitializers[featureId]) {
+                window.demoInitializers[featureId](content.demoId);
+            }
+
+            // Add modal event listeners
+            const modalElement = document.getElementById('featureModal');
+            modalElement.addEventListener('hidden.bs.modal', () => {
+                Performance.end(`feature_modal_${featureId}`, 'Feature Modal');
+                Analytics.trackEvent('Feature Modal', 'Close', featureId);
+            });
+
+            // Track user engagement
+            Analytics.incrementUserMetric('feature_modal_views', 1);
+            Analytics.incrementUserMetric('engagement_score', 3);
+            Analytics.setUserProperty('last_feature_viewed', featureId);
+        }
+
+        // Visualization Demo
+        function showVizDemo(vizType) {
+            // Track demo interaction
+            Analytics.trackEvent('Visualization Demo', 'Start', vizType);
+            Performance.start(`viz_demo_${vizType}`);
+
+            // Get demo container
+            const demoContainer = document.getElementById(`${vizType}-demo`);
+            if (!demoContainer) return;
+
+            // Clear existing content
+            demoContainer.innerHTML = '';
+
+            // Add demo controls
+            const controlsDiv = document.createElement('div');
+            controlsDiv.className = 'demo-controls mb-3';
+            controlsDiv.innerHTML = `
+                <div class="btn-group">
+                    <button class="btn btn-outline-primary" data-demo-control="${vizType}" value="color">
+                        Change Color
+                    </button>
+                    <button class="btn btn-outline-primary" data-demo-control="${vizType}" value="size">
+                        Change Size
+                    </button>
+                    <button class="btn btn-outline-primary" data-demo-control="${vizType}" value="type">
+                        Change Type
+                    </button>
+                </div>
+            `;
+            demoContainer.appendChild(controlsDiv);
+
+            // Create plot container
+            const plotDiv = document.createElement('div');
+            plotDiv.id = `${vizType}-plot`;
+            plotDiv.className = 'demo-plot';
+            demoContainer.appendChild(plotDiv);
+
+            // Generate sample data
+            const sampleData = {
+                x: Array.from({length: 20}, (_, i) => i),
+                y: Array.from({length: 20}, () => Math.random() * 100),
+                mode: 'markers',
+                type: 'scatter',
+                marker: {
+                    size: 10,
+                    color: getRandomColor()
+                }
+            };
+
+            // Create plot
+            Plotly.newPlot(plotDiv, [sampleData], {
+                responsive: true,
+                margin: {t: 20, r: 20, b: 40, l: 40}
+            }).then(() => {
+                // Store reference for updates
+                demoCharts[vizType] = plotDiv;
+                
+                // Track successful load
+                Performance.end(`viz_demo_${vizType}`, 'Visualization Demo');
+                Analytics.trackEvent('Visualization Demo', 'Load Success', vizType);
+            }).catch(error => {
+                console.error('Demo visualization error:', error);
+                Analytics.trackError(`Demo visualization error: ${error.message}`);
+            });
+        }
+
+        // Tab Loading
+        function loadVizTab(tabId) {
+            // Start performance tracking
+            Performance.start(`viz_tab_${tabId}`);
+
+            // Get tab element
+            const tabElement = document.getElementById(tabId);
+            if (!tabElement) {
+                Analytics.trackError(`Tab ${tabId} not found`);
+                return;
+            }
+
+            // Show loading state
+            tabElement.classList.add('loading');
+            
+            try {
+                // Load tab content
+                const demoTypes = ['scatter', 'line', 'bar', 'box'];
+                const demoContainer = document.createElement('div');
+                demoContainer.className = 'demo-container';
+                
+                // Create demos for each visualization type
+                demoTypes.forEach(type => {
+                    createVisualizationDemo(type, demoContainer);
+                });
+                
+                // Clear existing content and append new demos
+                tabElement.innerHTML = '';
+                tabElement.appendChild(demoContainer);
+
+                // Initialize tooltips and other Bootstrap components
+                const tooltips = tabElement.querySelectorAll('[data-bs-toggle="tooltip"]');
+                tooltips.forEach(tooltip => new bootstrap.Tooltip(tooltip));
+
+                // Track successful load
+                Performance.end(`viz_tab_${tabId}`, 'Visualization Tab');
+                Analytics.trackEvent('Visualization Tab', 'Load Success', tabId);
+
+            } catch (error) {
+                console.error('Tab loading error:', error);
+                Analytics.trackError(`Tab loading error: ${error.message}`);
+                
+                // Show error state
+                tabElement.innerHTML = `
+                    <div class="alert alert-danger">
+                        Failed to load visualization tab. Please try refreshing the page.
+                    </div>
+                `;
+            } finally {
+                // Remove loading state
+                tabElement.classList.remove('loading');
+            }
+        }
     </script>
-</body>
-</html> 
