@@ -189,25 +189,25 @@
                 <i class="fas fa-chart-line me-2"></i>
                 R Viz Suite
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#features">Features</a>
+                        <a class="nav-link" href="#features" onclick="scrollToSection('features')">Features</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#visualizations">Visualizations</a>
+                        <a class="nav-link" href="#visualizations" onclick="scrollToSection('visualizations')">Visualizations</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#analysis">Analysis</a>
+                        <a class="nav-link" href="#analysis" onclick="scrollToSection('analysis')">Analysis</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#docs">Documentation</a>
+                        <a class="nav-link" href="#docs" onclick="scrollToSection('docs')">Documentation</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-primary ms-2" href="/app">Launch App</a>
+                        <a class="btn btn-primary ms-2" href="/app" onclick="trackAppLaunch()">Launch App</a>
                     </li>
                 </ul>
             </div>
@@ -215,13 +215,15 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-section">
+    <section class="hero-section" id="hero">
         <div class="container text-center">
             <h1 class="display-4 mb-4 animate__animated animate__fadeIn">Advanced R Data Visualization Suite</h1>
             <p class="lead mb-4 animate__animated animate__fadeIn">A comprehensive platform for data analysis, visualization, and reporting</p>
             <div class="d-flex justify-content-center gap-3 animate__animated animate__fadeIn">
-                <a href="#getting-started" class="btn btn-light btn-lg shadow" onclick="scrollToSection('getting-started')">Get Started</a>
-                <a href="https://github.com/username/advanced-r-viz-suite" class="btn btn-outline-light btn-lg shadow" target="_blank" rel="noopener">
+                <a href="#getting-started" class="btn btn-light btn-lg shadow" onclick="scrollToSection('getting-started'); trackButtonClick('get-started')">
+                    <i class="fas fa-play me-2"></i>Get Started
+                </a>
+                <a href="https://github.com/username/advanced-r-viz-suite" class="btn btn-outline-light btn-lg shadow" target="_blank" rel="noopener" onclick="trackButtonClick('github')">
                     <i class="fab fa-github me-2"></i>GitHub
                 </a>
             </div>
@@ -235,110 +237,115 @@
             <div class="row g-4">
                 <!-- Data Import Feature -->
                 <div class="col-md-4">
-                    <div class="feature-card animate__animated" data-feature="data-import">
+                    <div class="feature-card animate__animated" data-feature="data-import" data-aos="fade-up">
                         <div class="feature-icon">
-                            <i class="fas fa-database"></i>
+                            <i class="material-icons">upload_file</i>
                         </div>
                         <h4>Data Import</h4>
                         <p>Easily import data from various sources including CSV, Excel, RDS, and Feather files.</p>
                         <div class="feature-details">
                             <ul class="list-unstyled">
-                                <li><i class="fas fa-check"></i> Drag & drop file upload</li>
-                                <li><i class="fas fa-check"></i> Automatic data type detection</li>
-                                <li><i class="fas fa-check"></i> Preview & validation</li>
+                                <li><i class="material-icons">check</i> Drag & drop file upload</li>
+                                <li><i class="material-icons">check</i> Automatic data type detection</li>
+                                <li><i class="material-icons">check</i> Preview & validation</li>
                             </ul>
                         </div>
-                        <a href="#data-import" class="btn btn-primary mt-3" onclick="showFeatureModal('data-import')">Learn More</a>
+                        <a href="#data-import" class="btn btn-primary mt-3" onclick="showFeatureModal('data-import'); trackFeatureClick('data-import')">Learn More</a>
                     </div>
                 </div>
+
                 <!-- Data Visualization Feature -->
                 <div class="col-md-4">
-                    <div class="feature-card animate__animated" data-feature="data-viz" data-bs-toggle="tooltip" data-bs-placement="top" title="Explore a wide range of visualization options">
+                    <div class="feature-card animate__animated" data-feature="data-viz" data-aos="fade-up" data-aos-delay="100">
                         <div class="feature-icon">
-                            <i class="fas fa-chart-bar"></i>
+                            <i class="material-icons">insert_chart</i>
                         </div>
                         <h4>Data Visualization</h4>
                         <p>Create stunning visualizations with customizable options to fit your data analysis needs.</p>
                         <div class="feature-details">
                             <ul class="list-unstyled">
-                                <li><i class="fas fa-check"></i> Interactive plot builder</li>
-                                <li><i class="fas fa-check"></i> Real-time updates</li>
-                                <li><i class="fas fa-check"></i> Theme customization</li>
+                                <li><i class="material-icons">check</i> Interactive plot builder</li>
+                                <li><i class="material-icons">check</i> Real-time updates</li>
+                                <li><i class="material-icons">check</i> Theme customization</li>
                             </ul>
                         </div>
-                        <a href="#data-visualization" class="btn btn-primary mt-3" onclick="showFeatureModal('data-viz')">Learn More</a>
+                        <a href="#data-visualization" class="btn btn-primary mt-3" onclick="showFeatureModal('data-viz'); trackFeatureClick('data-viz')">Learn More</a>
                     </div>
                 </div>
+
                 <!-- Statistical Analysis Feature -->
                 <div class="col-md-4">
-                    <div class="feature-card animate__animated" data-feature="stats">
+                    <div class="feature-card animate__animated" data-feature="stats" data-aos="fade-up" data-aos-delay="200">
                         <div class="feature-icon">
-                            <i class="fas fa-calculator"></i>
+                            <i class="material-icons">analytics</i>
                         </div>
                         <h4>Statistical Analysis</h4>
                         <p>Perform in-depth statistical analyses including descriptive stats, correlation, and clustering.</p>
                         <div class="feature-details">
                             <ul class="list-unstyled">
-                                <li><i class="fas fa-check"></i> Automated reporting</li>
-                                <li><i class="fas fa-check"></i> Statistical tests</li>
-                                <li><i class="fas fa-check"></i> Model diagnostics</li>
+                                <li><i class="material-icons">check</i> Automated reporting</li>
+                                <li><i class="material-icons">check</i> Statistical tests</li>
+                                <li><i class="material-icons">check</i> Model diagnostics</li>
                             </ul>
                         </div>
-                        <a href="#statistical-analysis" class="btn btn-primary mt-3" onclick="showFeatureModal('stats')">Learn More</a>
+                        <a href="#statistical-analysis" class="btn btn-primary mt-3" onclick="showFeatureModal('stats'); trackFeatureClick('stats')">Learn More</a>
                     </div>
                 </div>
+
                 <!-- Interactive Dashboard Feature -->
                 <div class="col-md-4">
-                    <div class="feature-card animate__animated" data-feature="dashboard">
+                    <div class="feature-card animate__animated" data-feature="dashboard" data-aos="fade-up" data-aos-delay="300">
                         <div class="feature-icon">
-                            <i class="fas fa-tachometer-alt"></i>
+                            <i class="material-icons">dashboard</i>
                         </div>
                         <h4>Interactive Dashboard</h4>
                         <p>Build interactive dashboards to visualize key metrics and track data trends in real-time.</p>
                         <div class="feature-details">
                             <ul class="list-unstyled">
-                                <li><i class="fas fa-check"></i> Drag & drop layout</li>
-                                <li><i class="fas fa-check"></i> Live filtering</li>
-                                <li><i class="fas fa-check"></i> Auto-refresh</li>
+                                <li><i class="material-icons">check</i> Drag & drop layout</li>
+                                <li><i class="material-icons">check</i> Live filtering</li>
+                                <li><i class="material-icons">check</i> Auto-refresh</li>
                             </ul>
                         </div>
-                        <a href="#interactive-dashboard" class="btn btn-primary mt-3" onclick="showFeatureModal('dashboard')">Learn More</a>
+                        <a href="#interactive-dashboard" class="btn btn-primary mt-3" onclick="showFeatureModal('dashboard'); trackFeatureClick('dashboard')">Learn More</a>
                     </div>
                 </div>
+
                 <!-- Export & Share Feature -->
                 <div class="col-md-4">
-                    <div class="feature-card animate__animated" data-feature="export">
+                    <div class="feature-card animate__animated" data-feature="export" data-aos="fade-up" data-aos-delay="400">
                         <div class="feature-icon">
-                            <i class="fas fa-share-alt"></i>
+                            <i class="material-icons">share</i>
                         </div>
                         <h4>Export & Share</h4>
                         <p>Export your reports and visualizations in multiple formats and share them effortlessly.</p>
                         <div class="feature-details">
                             <ul class="list-unstyled">
-                                <li><i class="fas fa-check"></i> Multiple formats</li>
-                                <li><i class="fas fa-check"></i> Direct sharing</li>
-                                <li><i class="fas fa-check"></i> Embed options</li>
+                                <li><i class="material-icons">check</i> Multiple formats</li>
+                                <li><i class="material-icons">check</i> Direct sharing</li>
+                                <li><i class="material-icons">check</i> Embed options</li>
                             </ul>
                         </div>
-                        <a href="#export-share" class="btn btn-primary mt-3" onclick="showFeatureModal('export')">Learn More</a>
+                        <a href="#export-share" class="btn btn-primary mt-3" onclick="showFeatureModal('export'); trackFeatureClick('export')">Learn More</a>
                     </div>
                 </div>
+
                 <!-- Customization Feature -->
                 <div class="col-md-4">
-                    <div class="feature-card animate__animated" data-feature="custom">
+                    <div class="feature-card animate__animated" data-feature="custom" data-aos="fade-up" data-aos-delay="500">
                         <div class="feature-icon">
-                            <i class="fas fa-paint-brush"></i>
+                            <i class="material-icons">palette</i>
                         </div>
                         <h4>Customization</h4>
                         <p>Customize every aspect of your visualizations and reports to match your specific requirements.</p>
                         <div class="feature-details">
                             <ul class="list-unstyled">
-                                <li><i class="fas fa-check"></i> Theme editor</li>
-                                <li><i class="fas fa-check"></i> Custom CSS</li>
-                                <li><i class="fas fa-check"></i> Template system</li>
+                                <li><i class="material-icons">check</i> Theme editor</li>
+                                <li><i class="material-icons">check</i> Custom CSS</li>
+                                <li><i class="material-icons">check</i> Template system</li>
                             </ul>
                         </div>
-                        <a href="#customization" class="btn btn-primary mt-3" onclick="showFeatureModal('custom')">Learn More</a>
+                        <a href="#customization" class="btn btn-primary mt-3" onclick="showFeatureModal('custom'); trackFeatureClick('custom')">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -351,65 +358,67 @@
             <h2 class="text-center mb-5">Visualization Gallery</h2>
             <ul class="nav nav-tabs mb-4 justify-content-center" id="vizTabs" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button" role="tab" aria-controls="basic" aria-selected="true" onclick="loadVizTab('basic')">Basic</button>
+                    <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button" role="tab" aria-controls="basic" aria-selected="true" onclick="loadVizTab('basic'); trackTabClick('basic')">Basic</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="advanced-tab" data-bs-toggle="tab" data-bs-target="#advanced" type="button" role="tab" aria-controls="advanced" aria-selected="false" onclick="loadVizTab('advanced')">Advanced</button>
+                    <button class="nav-link" id="advanced-tab" data-bs-toggle="tab" data-bs-target="#advanced" type="button" role="tab" aria-controls="advanced" aria-selected="false" onclick="loadVizTab('advanced'); trackTabClick('advanced')">Advanced</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="statistical-tab" data-bs-toggle="tab" data-bs-target="#statistical" type="button" role="tab" aria-controls="statistical" aria-selected="false" onclick="loadVizTab('statistical')">Statistical</button>
+                    <button class="nav-link" id="statistical-tab" data-bs-toggle="tab" data-bs-target="#statistical" type="button" role="tab" aria-controls="statistical" aria-selected="false" onclick="loadVizTab('statistical'); trackTabClick('statistical')">Statistical</button>
                 </li>
             </ul>
             <div class="tab-content" id="vizTabsContent">
                 <!-- Basic Visualizations -->
                 <div class="tab-pane fade show active" id="basic" role="tabpanel" aria-labelledby="basic-tab">
                     <div class="gallery-grid">
-                        <div class="gallery-item" data-viz="scatter">
-                            <img src="images/scatter.png" alt="Scatter Plot" class="img-fluid">
+                        <div class="gallery-item" data-viz="scatter" data-aos="fade-up">
+                            <div class="gallery-preview">
+                                <i class="material-icons">scatter_plot</i>
+                            </div>
                             <div class="gallery-overlay">
                                 <h5>Scatter Plot</h5>
                                 <p>Interactive scatter plots with customizable aesthetics and trend lines.</p>
-                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('scatter')">View Demo</button>
+                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('scatter'); trackVizDemo('scatter')">View Demo</button>
                             </div>
                         </div>
-                        <div class="gallery-item" data-viz="line">
+                        <div class="gallery-item" data-viz="line" data-aos="fade-up">
                             <div class="gallery-preview">
-                                <i class="material-icons" style="font-size: 48px; color: #2e9fdf;">show_chart</i>
+                                <i class="material-icons">show_chart</i>
                             </div>
                             <div class="gallery-overlay">
                                 <h5>Line Chart</h5>
                                 <p>Time series visualization with interactive zooming and panning.</p>
-                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('line')">View Demo</button>
+                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('line'); trackVizDemo('line')">View Demo</button>
                             </div>
                         </div>
-                        <div class="gallery-item" data-viz="bar">
+                        <div class="gallery-item" data-viz="bar" data-aos="fade-up">
                             <div class="gallery-preview">
-                                <i class="material-icons" style="font-size: 48px; color: #2e9fdf;">bar_chart</i>
+                                <i class="material-icons">bar_chart</i>
                             </div>
                             <div class="gallery-overlay">
                                 <h5>Bar Chart</h5>
                                 <p>Categorical data comparison with grouping and stacking options.</p>
-                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('bar')">View Demo</button>
+                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('bar'); trackVizDemo('bar')">View Demo</button>
                             </div>
                         </div>
-                        <div class="gallery-item" data-viz="pie">
+                        <div class="gallery-item" data-viz="pie" data-aos="fade-up">
                             <div class="gallery-preview">
-                                <i class="material-icons" style="font-size: 48px; color: #2e9fdf;">pie_chart</i>
+                                <i class="material-icons">pie_chart</i>
                             </div>
                             <div class="gallery-overlay">
                                 <h5>Pie Chart</h5>
                                 <p>Proportional visualization with interactive slice selection.</p>
-                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('pie')">View Demo</button>
+                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('pie'); trackVizDemo('pie')">View Demo</button>
                             </div>
                         </div>
-                        <div class="gallery-item" data-viz="heatmap">
+                        <div class="gallery-item" data-viz="heatmap" data-aos="fade-up">
                             <div class="gallery-preview">
-                                <i class="material-icons" style="font-size: 48px; color: #2e9fdf;">grid_on</i>
+                                <i class="material-icons">grid_on</i>
                             </div>
                             <div class="gallery-overlay">
                                 <h5>Heatmap</h5>
                                 <p>Matrix data visualization with color intensity mapping.</p>
-                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('heatmap')">View Demo</button>
+                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('heatmap'); trackVizDemo('heatmap')">View Demo</button>
                             </div>
                         </div>
                     </div>
@@ -418,54 +427,54 @@
                 <!-- Advanced Visualizations -->
                 <div class="tab-pane fade" id="advanced" role="tabpanel" aria-labelledby="advanced-tab">
                     <div class="gallery-grid">
-                        <div class="gallery-item" data-viz="network">
+                        <div class="gallery-item" data-viz="network" data-aos="fade-up">
                             <div class="gallery-preview">
-                                <i class="material-icons" style="font-size: 48px; color: #2e9fdf;">hub</i>
+                                <i class="material-icons">hub</i>
                             </div>
                             <div class="gallery-overlay">
                                 <h5>Network Graph</h5>
                                 <p>Interactive network visualization with force-directed layout.</p>
-                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('network')">View Demo</button>
+                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('network'); trackVizDemo('network')">View Demo</button>
                             </div>
                         </div>
-                        <div class="gallery-item" data-viz="treemap">
+                        <div class="gallery-item" data-viz="treemap" data-aos="fade-up">
                             <div class="gallery-preview">
-                                <i class="material-icons" style="font-size: 48px; color: #2e9fdf;">dashboard</i>
+                                <i class="material-icons">dashboard</i>
                             </div>
                             <div class="gallery-overlay">
                                 <h5>Treemap</h5>
                                 <p>Hierarchical data visualization with nested rectangles.</p>
-                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('treemap')">View Demo</button>
+                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('treemap'); trackVizDemo('treemap')">View Demo</button>
                             </div>
                         </div>
-                        <div class="gallery-item" data-viz="sankey">
+                        <div class="gallery-item" data-viz="sankey" data-aos="fade-up">
                             <div class="gallery-preview">
-                                <i class="material-icons" style="font-size: 48px; color: #2e9fdf;">account_tree</i>
+                                <i class="material-icons">account_tree</i>
                             </div>
                             <div class="gallery-overlay">
                                 <h5>Sankey Diagram</h5>
                                 <p>Flow visualization with interactive path highlighting.</p>
-                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('sankey')">View Demo</button>
+                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('sankey'); trackVizDemo('sankey')">View Demo</button>
                             </div>
                         </div>
-                        <div class="gallery-item" data-viz="parallel">
+                        <div class="gallery-item" data-viz="parallel" data-aos="fade-up">
                             <div class="gallery-preview">
-                                <i class="material-icons" style="font-size: 48px; color: #2e9fdf;">stacked_line_chart</i>
+                                <i class="material-icons">stacked_line_chart</i>
                             </div>
                             <div class="gallery-overlay">
                                 <h5>Parallel Coordinates</h5>
                                 <p>Multivariate data analysis with brushing and linking.</p>
-                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('parallel')">View Demo</button>
+                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('parallel'); trackVizDemo('parallel')">View Demo</button>
                             </div>
                         </div>
-                        <div class="gallery-item" data-viz="chord">
+                        <div class="gallery-item" data-viz="chord" data-aos="fade-up">
                             <div class="gallery-preview">
-                                <i class="material-icons" style="font-size: 48px; color: #2e9fdf;">donut_large</i>
+                                <i class="material-icons">donut_large</i>
                             </div>
                             <div class="gallery-overlay">
                                 <h5>Chord Diagram</h5>
                                 <p>Relationship visualization with interactive highlighting.</p>
-                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('chord')">View Demo</button>
+                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('chord'); trackVizDemo('chord')">View Demo</button>
                             </div>
                         </div>
                     </div>
@@ -474,28 +483,34 @@
                 <!-- Statistical Visualizations -->
                 <div class="tab-pane fade" id="statistical" role="tabpanel" aria-labelledby="statistical-tab">
                     <div class="gallery-grid">
-                        <div class="gallery-item" data-viz="boxplot">
-                            <img src="images/boxplot.png" alt="Box Plot" class="img-fluid">
+                        <div class="gallery-item" data-viz="boxplot" data-aos="fade-up">
+                            <div class="gallery-preview">
+                                <i class="material-icons">candlestick_chart</i>
+                            </div>
                             <div class="gallery-overlay">
                                 <h5>Box Plot</h5>
                                 <p>Statistical distribution visualization with outlier detection.</p>
-                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('boxplot')">View Demo</button>
+                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('boxplot'); trackVizDemo('boxplot')">View Demo</button>
                             </div>
                         </div>
-                        <div class="gallery-item" data-viz="histogram">
-                            <img src="images/histogram.png" alt="Histogram" class="img-fluid">
+                        <div class="gallery-item" data-viz="histogram" data-aos="fade-up">
+                            <div class="gallery-preview">
+                                <i class="material-icons">bar_chart</i>
+                            </div>
                             <div class="gallery-overlay">
                                 <h5>Histogram</h5>
                                 <p>Frequency distribution analysis with density estimation.</p>
-                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('histogram')">View Demo</button>
+                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('histogram'); trackVizDemo('histogram')">View Demo</button>
                             </div>
                         </div>
-                        <div class="gallery-item" data-viz="qqplot">
-                            <img src="images/qqplot.png" alt="Q-Q Plot" class="img-fluid">
+                        <div class="gallery-item" data-viz="qqplot" data-aos="fade-up">
+                            <div class="gallery-preview">
+                                <i class="material-icons">scatter_plot</i>
+                            </div>
                             <div class="gallery-overlay">
                                 <h5>Q-Q Plot</h5>
                                 <p>Normality assessment and distribution comparison.</p>
-                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('qqplot')">View Demo</button>
+                                <button type="button" class="btn btn-sm btn-light" onclick="showVizDemo('qqplot'); trackVizDemo('qqplot')">View Demo</button>
                             </div>
                         </div>
                     </div>
@@ -731,7 +746,7 @@
                         <li><a href="/contact/bug-report" class="text-light" onclick="trackFooterLink('bug-report')">Bug Report</a></li>
                     </ul>
                 </div>
-            /div>
+            </div>
             <div class="text-center mt-3">
                 <p>&copy; 2024 Lucius J. Morningstar. All rights reserved.</p>
             </div>
