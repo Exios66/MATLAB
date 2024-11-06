@@ -1,0 +1,79 @@
+---
+title: "Data Visualization Report"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: cosmo
+    toc: true
+    toc_float: true
+params:
+  data: NULL
+  plots: NULL
+---
+## Data Summary
+
+```{r setup, include=FALSE}
+library(rmarkdown)
+```
+
+```{r}
+summary(params$data)
+```
+
+To run this enhanced application, run the following code:
+
+```{r}
+library(shiny)
+runApp("app")
+```
+
+This enhanced version includes:
+
+1. **Improved User Interface**:
+   - Modern dashboard design
+   - Quick action buttons
+   - Loading screens
+   - Responsive layout
+   - Custom styling
+
+2. **Enhanced Data Handling**:
+   - Support for multiple file formats
+   - Automatic data type detection
+   - Progress indicators
+   - Error handling
+
+3. **Advanced Visualization Controls**:
+   - Dynamic control panels
+   - Interactive plot modifications
+   - Theme switching
+   - Multiple visualization options
+
+4. **Statistical Analysis Features**:
+   - Descriptive statistics
+   - Correlation analysis
+   - Clustering options
+   - Distribution analysis
+
+5. **Export and Sharing**:
+   - Multiple export formats
+   - Custom report generation
+   - Sharing capabilities
+   - Batch export options
+
+6. **User Experience Improvements**:
+   - Tooltips and help text
+   - Intuitive layout
+   - Keyboard shortcuts
+   - Session persistence
+
+To use this application:
+
+1. Place all files in appropriate directories
+2. Install required packages
+3. Run the application using `run_app.R`
+4. Upload data through the interface
+5. Use the various tabs to create and customize visualizations
+6. Export or share results as needed
+7. Save your work and close the application
+
+

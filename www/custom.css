@@ -1,0 +1,35 @@
+/* Custom styling */
+.content-wrapper {
+    background-color: #f4f6f9;
+}
+
+.box {
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.box-header {
+    border-bottom: 1px solid #f4f4f4;
+}
+
+.btn-primary {
+    background-color: #2C3E50;
+    border-color: #2C3E50;
+}
+
+.btn-primary:hover {
+    background-color: #34495E;
+    border-color: #34495E;
+}
+
+/* Loading animation */
+.waiter-overlay {
+    background-color: rgba(255,255,255,0.7);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .box {
+        margin-bottom: 10px;
+    }
+} 
