@@ -75,5 +75,3 @@ To use this application:
 5. Use the various tabs to create and customize visualizations
 6. Export or share results as needed
 7. Save your work and close the application
-
-
