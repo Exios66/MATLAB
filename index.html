@@ -16,13 +16,38 @@
             --accent-color: #E7B800;
             --dark-color: #343A40;
             --light-color: #F8F9FA;
+
+            /* Light theme (default) */
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8F9FA;
+            --text-primary: #343A40;
+            --text-secondary: #6C757D;
+            --border-color: #DEE2E6;
+            --card-bg: #FFFFFF;
+            --nav-bg: #343A40;
+            --nav-text: #FFFFFF;
+
+            /* Theme transition */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Dark theme variables */
+        [data-theme="dark"] {
+            --bg-primary: #1A1A1A;
+            --bg-secondary: #2D2D2D;
+            --text-primary: #FFFFFF;
+            --text-secondary: #CCCCCC;
+            --border-color: #404040;
+            --card-bg: #2D2D2D;
+            --nav-bg: #000000;
+            --nav-text: #FFFFFF;
         }
 
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             line-height: 1.6;
-            background-color: var(--light-color);
-            color: var(--dark-color);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
         }
 
         .hero-section {
@@ -54,9 +79,10 @@
             border-radius: 15px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-            background-color: white;
+            background-color: var(--card-bg);
             padding: 2rem;
             text-align: center;
+            color: var(--text-primary);
         }
 
         .feature-card:hover {
@@ -88,11 +114,12 @@
         }
 
         .code-block {
-            background: #f1f3f5;
+            background-color: var(--bg-secondary);
             padding: 1.5rem;
             border-radius: 10px;
             font-family: 'Fira Code', monospace;
             overflow-x: auto;
+            color: var(--text-primary);
         }
 
         .gallery-grid {
@@ -179,6 +206,20 @@
                 font-size: 2.5rem;
             }
         }
+
+        .navbar {
+            background-color: var(--nav-bg) !important;
+            color: var(--nav-text);
+        }
+
+        .nav-tabs .nav-link {
+            color: var(--text-primary);
+        }
+
+        .nav-tabs .nav-link.active {
+            background-color: var(--bg-primary);
+            color: var(--primary-color);
+        }
     </style>
 </head>
 <body>
@@ -205,6 +246,11 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#docs" onclick="scrollToSection('docs')">Documentation</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-outline-light ms-2" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                            <i class="fas fa-moon" id="themeIcon"></i>
+                        </button>
                     </li>
                     <li class="nav-item">
                         <a class="btn btn-primary ms-2" href="/app" onclick="trackAppLaunch()">Launch App</a>
@@ -1462,4 +1508,104 @@
                 tabElement.classList.remove('loading');
             }
         }
+
+        // Theme Management System
+        const ThemeManager = {
+            THEME_KEY: 'site_theme',
+            DARK: 'dark',
+            LIGHT: 'light',
+
+            init() {
+                // Initialize theme
+                const savedTheme = localStorage.getItem(this.THEME_KEY) || 
+                    (window.matchMedia('(prefers-color-scheme: dark)').matches ? this.DARK : this.LIGHT);
+                this.applyTheme(savedTheme);
+
+                // Listen for system theme changes
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                    const newTheme = e.matches ? this.DARK : this.LIGHT;
+                    this.applyTheme(newTheme);
+                });
+
+                // Track initialization
+                Analytics.trackEvent('Theme', 'Initialize', savedTheme);
+            },
+
+            applyTheme(theme) {
+                const isDark = theme === this.DARK;
+                document.documentElement.setAttribute('data-theme', theme);
+                document.getElementById('themeIcon').className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+                
+                // Update Bootstrap classes
+                const navbar = document.querySelector('.navbar');
+                if (navbar) {
+                    navbar.classList.toggle('navbar-dark', isDark);
+                    navbar.classList.toggle('navbar-light', !isDark);
+                }
+
+                // Update charts if they exist
+                this.updateCharts(isDark);
+
+                // Store theme preference
+                localStorage.setItem(this.THEME_KEY, theme);
+
+                // Track theme change
+                Analytics.trackEvent('Theme', 'Change', theme);
+            },
+
+            updateCharts(isDark) {
+                // Update all Plotly charts with new theme
+                const charts = document.querySelectorAll('[id^="demo-"]');
+                charts.forEach(chart => {
+                    if (chart && chart.data) {
+                        const layout = {
+                            paper_bgcolor: isDark ? '#2D2D2D' : '#FFFFFF',
+                            plot_bgcolor: isDark ? '#1A1A1A' : '#F8F9FA',
+                            font: {
+                                color: isDark ? '#FFFFFF' : '#343A40'
+                            },
+                            xaxis: {
+                                gridcolor: isDark ? '#404040' : '#DEE2E6'
+                            },
+                            yaxis: {
+                                gridcolor: isDark ? '#404040' : '#DEE2E6'
+                            }
+                        };
+                        Plotly.relayout(chart, layout).catch(error => {
+                            console.error('Failed to update chart theme:', error);
+                            Analytics.trackError(`Chart theme update failed: ${error.message}`);
+                        });
+                    }
+                });
+            },
+
+            getCurrentTheme() {
+                return document.documentElement.getAttribute('data-theme') || this.LIGHT;
+            }
+        };
+
+        // Theme Toggle Function
+        function toggleTheme() {
+            Performance.start('theme_toggle');
+            const currentTheme = ThemeManager.getCurrentTheme();
+            const newTheme = currentTheme === ThemeManager.DARK ? ThemeManager.LIGHT : ThemeManager.DARK;
+            
+            try {
+                ThemeManager.applyTheme(newTheme);
+                Performance.end('theme_toggle', 'Theme Toggle');
+                
+                // Track successful theme toggle
+                Analytics.trackEvent('Theme', 'Toggle', `${currentTheme} to ${newTheme}`);
+                Analytics.incrementUserMetric('theme_toggles', 1);
+                
+            } catch (error) {
+                console.error('Theme toggle failed:', error);
+                Analytics.trackError(`Theme toggle failed: ${error.message}`);
+            }
+        }
+
+        // Initialize theme system on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            ThemeManager.init();
+        });
     </script>
