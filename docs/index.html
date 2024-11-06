@@ -716,9 +716,11 @@
                 <div class="col-md-4">
                     <h5>Community</h5>
                     <ul class="list-unstyled">
-                        <li><a href="https://github.com/username/advanced-r-viz-suite" class="text-light" target="_blank" rel="noopener" onclick="trackFooterLink('github')">GitHub</a></li>
+                        <li><a href="https://github.com/Exios66/MATLAB" class="text-light" target="_blank" rel="noopener" onclick="trackFooterLink('github')">GitHub</a></li>
                         <li><a href="https://stackoverflow.com/questions/tagged/advanced-r-viz-suite" class="text-light" target="_blank" rel="noopener" onclick="trackFooterLink('stackoverflow')">Stack Overflow</a></li>
-                        <li><a href="https://twitter.com/username" class="text-light" target="_blank" rel="noopener" onclick="trackFooterLink('twitter')">Twitter</a></li>
+                        <li><a href="https://twitter.com/_morningstar_ai" class="text-light" target="_blank" rel="noopener" onclick="trackFooterLink('twitter')">Twitter</a></li>
+                        <li><a href="https://github.com/Exios66" class="text-light" target="_blank" rel="noopener" onclick="trackFooterLink('github')">GitHub</a></li>
+                        <li><a href="https://reddit.com/user/_Exios" class="text-light" target="_blank" rel="noopener" onclick="trackFooterLink('reddit')">Reddit</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
@@ -743,67 +745,120 @@
     <script>
         // Initialize all Bootstrap components and custom functionality
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize tooltips
-            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-                return new bootstrap.Tooltip(tooltipTriggerEl)
+            // Track page load timing
+            Performance.start('page_load');
+
+            // Initialize tooltips with configuration
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl, {
+                    boundary: 'window',
+                    trigger: 'hover focus',
+                    animation: true
+                });
             });
 
-            // Initialize popovers
-            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-            var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-                return new bootstrap.Popover(popoverTriggerEl)
+            // Initialize popovers with configuration
+            const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+            const popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+                return new bootstrap.Popover(popoverTriggerEl, {
+                    trigger: 'focus',
+                    html: true,
+                    sanitize: true
+                });
             });
 
-            // Smooth scrolling for anchor links
+            // Enhanced smooth scrolling with progress tracking
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
-                    scrollToSection(this.getAttribute('href').substring(1));
+                    const targetId = this.getAttribute('href').substring(1);
+                    Performance.start(`scroll_to_${targetId}`);
+                    scrollToSection(targetId);
+                    Analytics.trackEvent('Navigation', 'Smooth Scroll', targetId);
                 });
             });
 
-            // Navbar scroll behavior
+            // Enhanced navbar scroll behavior with throttling
             const navbar = document.querySelector('.navbar');
+            let lastScrollY = window.scrollY;
+            let ticking = false;
+
             window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('navbar-scrolled');
-                } else {
-                    navbar.classList.remove('navbar-scrolled');
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        if (window.scrollY > 50) {
+                            navbar.classList.add('navbar-scrolled');
+                            if (!navbar.hasAttribute('data-scrolled')) {
+                                navbar.setAttribute('data-scrolled', 'true');
+                                Analytics.trackEvent('UI', 'Navbar', 'Scrolled');
+                            }
+                        } else {
+                            navbar.classList.remove('navbar-scrolled');
+                            navbar.removeAttribute('data-scrolled');
+                        }
+                        lastScrollY = window.scrollY;
+                        ticking = false;
+                    });
+                    ticking = true;
                 }
             });
 
-            // Feature card animations
+            // Initialize feature cards with intersection observer
             initFeatureCardAnimations();
 
-            // Code block syntax highlighting
-            if (typeof Prism !== 'unde<fined') {
-                Prism.highlightAll();
+            // Initialize syntax highlighting with error handling
+            try {
+                if (typeof Prism !== 'undefined') {
+                    Prism.highlightAll();
+                    Analytics.trackEvent('Features', 'Syntax Highlighting', 'Initialized');
+                }
+            } catch (error) {
+                Analytics.trackError('Prism initialization failed: ' + error.message);
+                console.error('Syntax highlighting failed:', error);
             }
 
-            // Form validation
+            // Enhanced form validation
             initFormValidation();
 
-            // Mobile menu handling
+            // Mobile menu optimization
             initMobileMenu();
 
-            // Initialize Animate.css
+            // Animation system initialization
             initAnimations();
 
-            // Initialize visualization demos
+            // Visualization demos with lazy loading
             initVizDemos();
+
+            // Track successful initialization
+            Performance.end('page_load', 'Page Performance');
+            Analytics.trackEvent('System', 'Initialization', 'Complete');
         });
 
-        // Utility Functions
+        // Enhanced utility functions
         function scrollToSection(sectionId) {
             const target = document.getElementById(sectionId);
             if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+                const offset = 60; // Account for fixed header
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
                 });
-                // Track scroll event
+
+                // Track scroll completion
+                const scrollEndCallback = () => {
+                    if (Math.abs(window.pageYOffset - targetPosition) < 5) {
+                        Performance.end(`scroll_to_${sectionId}`, 'Navigation');
+                        window.removeEventListener('scroll', scrollEndCallback);
+                    }
+                };
+                window.addEventListener('scroll', scrollEndCallback);
+                
                 trackScroll(sectionId);
+            } else {
+                Analytics.trackError(`Section not found: ${sectionId}`);
             }
         }
 
