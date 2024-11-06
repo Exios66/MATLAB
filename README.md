@@ -4,12 +4,12 @@
 
 ![R Version](https://img.shields.io/badge/R-%3E%3D%204.0.0-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/username/advanced-r-viz-suite)
-![GitHub last commit](https://img.shields.io/github/last-commit/username/advanced-r-viz-suite)
-![GitHub issues](https://img.shields.io/github/issues/username/advanced-r-viz-suite)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/username/advanced-r-viz-suite)
-![GitHub stars](https://img.shields.io/github/stars/username/advanced-r-viz-suite)
-![GitHub forks](https://img.shields.io/github/forks/username/advanced-r-viz-suite)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/Exios66/MATLAB)
+![GitHub last commit](https://img.shields.io/github/last-commit/Exios66/MATLAB)
+![GitHub issues](https://img.shields.io/github/issues/Exios66/MATLAB)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/Exios66/MATLAB)
+![GitHub stars](https://img.shields.io/github/stars/Exios66/MATLAB)
+![GitHub forks](https://img.shields.io/github/forks/Exios66/MATLAB)
 
 [![Build Status](https://github.com/Exios66/MATLAB/workflows/R-CMD-check/badge.svg)](https://github.com/Exios66/MATLAB/actions)
 [![codecov](https://codecov.io/gh/Exios66/MATLAB/branch/main/graph/badge.svg)](https://codecov.io/gh/Exios66/MATLAB)
@@ -72,9 +72,11 @@ The Advanced R Data Visualization Suite is a comprehensive platform for data ana
 
 ### Prerequisites
 
-r
+```r
 Install required packages
 install.packages(c(
+```
+```r
 "shiny",
 "shinydashboard",
 "shinydashboardPlus",
@@ -107,6 +109,7 @@ install.packages(c(
 "dendextend",
 "rmarkdown"
 ))
+```
 
 ### Setup Instructions
 
