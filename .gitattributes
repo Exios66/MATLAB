@@ -1,2 +1,11 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+*.m text
+*.R text
+*.Rmd text
+*.css text
+*.js text
+*.html text
+*.md text
+*.png binary
+*.mat binary
