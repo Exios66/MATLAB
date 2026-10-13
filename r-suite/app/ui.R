@@ -2,19 +2,7 @@
 ui <- dashboardPage(
   dark = TRUE,
   dashboardHeader(
-    title = "Advanced Data Visualization Suite",
-    leftUi = tagList(
-      dropdownButton(
-        "Quick Actions",
-        icon = icon("bolt"),
-        status = "primary",
-        buttonList(
-          actionButton("quick_scatter", "Quick Scatter"),
-          actionButton("quick_hist", "Quick Histogram"),
-          actionButton("quick_box", "Quick Box Plot")
-        )
-      )
-    )
+    title = "Advanced Data Visualization Suite"
   ),
   
   dashboardSidebar(
@@ -32,10 +20,7 @@ ui <- dashboardPage(
     conditionalPanel(
       condition = "input.sidebar == 'data_prep'",
       fileInput("file", "Upload Data File",
-                accept = c(".csv", ".xlsx", ".rds", ".feather")),
-      selectInput("preprocess_steps", "Preprocessing Steps",
-                 choices = c("Clean", "Transform", "Engineer"),
-                 multiple = TRUE)
+                accept = c(".csv", ".xlsx", ".rds", ".feather"))
     )
   ),
   
@@ -70,10 +55,10 @@ ui <- dashboardPage(
             checkboxGroupInput("preprocessing_options",
                              "Select Options:",
                              choices = c(
-                               "Handle Missing Values" = "missing",
-                               "Remove Outliers" = "outliers",
-                               "Feature Scaling" = "scaling",
-                               "Feature Engineering" = "engineering"
+                               # value ids must match preprocess_data(steps = ...)
+                               "Handle Missing Values & Remove Outliers" = "clean",
+                               "Normalize Columns" = "transform",
+                               "Feature Engineering" = "engineer"
                              ))
           )
         )
@@ -108,9 +93,7 @@ ui <- dashboardPage(
             title = "Advanced Plot Controls",
             width = 3,
             selectInput("advanced_plot_type", "Plot Type",
-                       choices = c("Treemap", "Network", "Sunburst", "Sankey",
-                                 "3D Scatter", "Heatmap", "Parallel Coordinates")),
-            uiOutput("dynamic_controls")
+                       choices = c("Treemap", "Ridge"))
           ),
           box(
             title = "Advanced Visualization Output",
@@ -125,24 +108,13 @@ ui <- dashboardPage(
         navbarPage("Statistical Analysis",
           tabPanel("Descriptive Stats",
             fluidRow(
-              box(verbatimTextOutput("desc_stats")),
-              box(plotOutput("dist_plot"))
+              box(verbatimTextOutput("desc_stats"), width = 12)
             )
           ),
           tabPanel("Correlation Analysis",
             fluidRow(
               box(plotOutput("corr_plot")),
               box(DTOutput("corr_table"))
-            )
-          ),
-          tabPanel("Clustering",
-            fluidRow(
-              box(
-                selectInput("cluster_method", "Clustering Method",
-                           choices = c("K-means", "Hierarchical", "DBSCAN")),
-                numericInput("n_clusters", "Number of Clusters", value = 3)
-              ),
-              box(plotOutput("cluster_plot"))
             )
           )
         )
@@ -155,11 +127,10 @@ ui <- dashboardPage(
             title = "Export Options",
             width = 12,
             selectInput("export_format", "Export Format",
-                       choices = c("PDF", "HTML", "PNG", "Interactive HTML")),
+                       choices = c("HTML" = "html")),
             selectInput("export_plots", "Select Plots to Export",
                        choices = NULL, multiple = TRUE),
-            downloadButton("download_report", "Generate Report"),
-            actionButton("share_btn", "Share Visualizations")
+            downloadButton("download_report", "Generate Report")
           )
         )
       )

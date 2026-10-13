@@ -49,7 +49,9 @@ Rscript run_app.R       # launches the Shiny app in a browser
 
 ## Verification status (honest)
 
-- The R suite checks **were executed** during development: `Rscript run_checks.R` exits 0 (parse + lint + 22 assertions).
+- The R suite checks **were executed** during development: `Rscript run_checks.R` exits 0 (parse + lint + 22 assertions + a boot-guard test), and a local Shiny boot was verified by serving UI over HTTP (200 OK).
+- Box/histogram visualization creators were executed locally (ggplot output + `ggplotly` conversion).
+- The report download additionally needs **pandoc** (bundled with RStudio Desktop; plain CRAN R does not ship it). It could not be rendered on the development machine — verify `download_report` on your target machine.
 - The MATLAB code was **not executed** here (no MATLAB runtime available); it was developed with line-by-line static verification and numeric mirrors. Run `run_checks` on your first MATLAB session — all tests are included and discoverable by `runtests`.
 - Root-level: `matlab/run_checks.m` (MATLAB side), `r-suite/run_checks.R` (R side).
 

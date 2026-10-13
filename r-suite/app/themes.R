@@ -1,5 +1,6 @@
 # Custom Themes and Color Palettes
-library(RColorBrewer)
+# All themes depend only on ggplot2 (RColorBrewer was only transitively used).
+library(ggplot2)
 
 # Modern minimalist theme
 theme_modern <- function() {

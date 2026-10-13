@@ -17,8 +17,10 @@ cat("Parsed", length(files), "R files:", if (ok) "ok\n" else "FAILURES\n")
 
 if (ok && requireNamespace("lintr", quietly = TRUE)) {
   hits <- unlist(lapply(files, function(f)
-    tryCatch(lintr::lint(f), error = function(e) NULL)))
+    tryCatch(lintr::lint(f), error = function(e) NULL)), recursive = FALSE)
   cat("lintr:", length(hits), "issues\n")
+  err_hits <- hits[vapply(hits, function(h) identical(h$type, "error"), logical(1))]
+  cat("lintr error-severity:", length(err_hits), "\n")
 }
 
 if (ok && dir.exists("tests")) {
