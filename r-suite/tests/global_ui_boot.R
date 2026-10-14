@@ -27,9 +27,9 @@ run_boot_check <- function() {
 
   env <- new.env(parent = globalenv())
   source("global.R", local = env)          # guard + attach + sourced helpers
-  if (!exists("ui", envir = env) ) stop("global.R did not define the ui object")
   ui_el <- eval(parse("ui.R"), env)        # evaluating ui.R = the real boot surface
-  ok <- inherits(ui_el, "shiny.tag") || inherits(ui_el, "shiny.tag.list")
+  ok <- exists("ui", envir = env) &&
+        (inherits(env$ui, "shiny.tag") || inherits(env$ui, "shiny.tag.list"))
   if (!ok) stop("ui.R did not evaluate to a Shiny tag object")
   cat("Boot check passed: deps attached, ui.R evaluated to", class(ui_el)[1], "\n")
   invisible(TRUE)
